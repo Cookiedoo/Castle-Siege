@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://bqxm7d8k5a0yw"]
+
+[ext_resource type="Script" uid="uid://ppbhc2ugiawy" path="res://gameplay/attacker/attacker.gd" id="1_attacker"]
+[ext_resource type="PackedScene" uid="uid://cakxbtjmtbl22" path="res://ui/attacker/attacker_hud.tscn" id="2_hud"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1"]
+radius = 2.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath(".:current_health")
+properties/2/spawn = true
+properties/2/sync = true
+
+[node name="Attacker" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_attacker")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_1")
+
+[node name="AttackRange" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRange"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_1")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="AttackerHUD" parent="." instance=ExtResource("2_hud")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1")
+replication_interval = 0.05

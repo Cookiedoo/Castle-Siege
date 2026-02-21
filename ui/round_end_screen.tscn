@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://round_end_screen01"]
+
+[ext_resource type="Script" path="res://ui/round_end_screen.gd" id="1_script"]
+
+[node name="RoundEndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_script")
+visible = false
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+mouse_filter = 0
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -180.0
+offset_right = 300.0
+offset_bottom = 180.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "RESULT"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 48
+
+[node name="Separator" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="DetailLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Time: 00:00   |   Towers Built: 0   |   Gold Earned: 0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+
+[node name="Spacer" type="Control" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 20)
+
+[node name="PlayAgainButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Play Again (Same Map)"
+custom_minimum_size = Vector2(0, 50)
+theme_override_font_sizes/font_size = 22
+
+[node name="MenuButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Return to Menu"
+custom_minimum_size = Vector2(0, 50)
+theme_override_font_sizes/font_size = 22

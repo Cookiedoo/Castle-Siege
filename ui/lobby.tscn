@@ -1,0 +1,146 @@
+[gd_scene load_steps=2 format=3 uid="uid://lobby_scene_01"]
+
+[ext_resource type="Script" path="res://ui/lobby.gd" id="1_lobby"]
+
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_lobby")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -360.0
+offset_right = 380.0
+offset_bottom = 360.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "CASTLE SIEGE — MULTIPLAYER LOBBY"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 26
+
+[node name="Separator0" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="ModeRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="HostButton" type="Button" parent="Panel/VBox/ModeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Host Game"
+custom_minimum_size = Vector2(0, 44)
+
+[node name="JoinButton" type="Button" parent="Panel/VBox/ModeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Join Game"
+custom_minimum_size = Vector2(0, 44)
+
+[node name="JoinRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+visible = false
+
+[node name="IPLabel" type="Label" parent="Panel/VBox/JoinRow"]
+layout_mode = 2
+text = "IP: "
+
+[node name="IPField" type="LineEdit" parent="Panel/VBox/JoinRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "127.0.0.1"
+
+[node name="PortLabel" type="Label" parent="Panel/VBox/JoinRow"]
+layout_mode = 2
+text = "  Port: "
+
+[node name="PortField" type="LineEdit" parent="Panel/VBox/JoinRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 0)
+placeholder_text = "7777"
+text = "7777"
+
+[node name="MapRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="MapLeftBtn" type="Button" parent="Panel/VBox/MapRow"]
+layout_mode = 2
+text = "<"
+custom_minimum_size = Vector2(36, 0)
+
+[node name="MapLabel" type="Label" parent="Panel/VBox/MapRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(220, 0)
+text = "Test Arena"
+horizontal_alignment = 1
+
+[node name="MapRightBtn" type="Button" parent="Panel/VBox/MapRow"]
+layout_mode = 2
+text = ">"
+custom_minimum_size = Vector2(36, 0)
+
+[node name="RoleRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+visible = false
+
+[node name="BecomeKingBtn" type="Button" parent="Panel/VBox/RoleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Become King"
+custom_minimum_size = Vector2(0, 44)
+
+[node name="BecomeAttackerBtn" type="Button" parent="Panel/VBox/RoleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Become Attacker"
+custom_minimum_size = Vector2(0, 44)
+
+[node name="RoleStatusLabel" type="Label" parent="Panel/VBox/RoleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No role selected"
+horizontal_alignment = 1
+
+[node name="Separator1" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="PlayerListTitle" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Players:"
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerList" type="VBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 80)
+
+[node name="Separator2" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Choose Host or Join to begin."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="StartButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Start Match (Host Only)"
+custom_minimum_size = Vector2(0, 50)
+theme_override_font_sizes/font_size = 20
+
+[node name="BackButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Back to Menu"
+custom_minimum_size = Vector2(0, 40)

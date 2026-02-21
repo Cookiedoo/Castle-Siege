@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpram4n7x2klt"]
+
+[ext_resource type="Script" uid="uid://br8fqwn7xayoy" path="res://gameplay/king/king_camera.gd" id="1_king_camera"]
+
+[node name="KingCamera" type="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+script = ExtResource("1_king_camera")

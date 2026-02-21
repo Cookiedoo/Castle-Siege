@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dei0yob4m2p64"]
+
+[ext_resource type="Script" uid="uid://brpsmlpenal20" path="res://gameplay/Projectiles/arrow_projectile.gd" id="1_adsdw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a712x"]
+radius = 0.1
+height = 0.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_adsdw"]
+radius = 0.1
+height = 0.5
+
+[node name="ArrowProjectile" type="Area3D"]
+script = ExtResource("1_adsdw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_a712x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_adsdw")

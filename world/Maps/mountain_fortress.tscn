@@ -1,0 +1,152 @@
+[gd_scene load_steps=34 format=3 uid="uid://placeholder_mountain"]
+
+[ext_resource type="Script" uid="uid://bm4config3x7" path="res://world/map_config.gd" id="99_mapconfig"]
+
+[ext_resource type="Texture2D" uid="uid://mgmbkkqc0xie" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_01.png" id="1_rock"]
+[ext_resource type="Texture2D" uid="uid://cj3it6aa7amcs" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_04.png" id="2_darkrock"]
+[ext_resource type="Texture2D" uid="uid://dacqkikb7e8a2" path="res://assets/kenney_prototype-textures/PNG/Green/texture_09.png" id="3_grass"]
+[ext_resource type="Texture2D" uid="uid://4mpmxfaq2bon" path="res://assets/kenney_prototype-textures/PNG/Light/texture_07.png" id="4_light"]
+[ext_resource type="Texture2D" uid="uid://bw01n15p668x6" path="res://assets/kenney_prototype-textures/PNG/Orange/texture_10.png" id="5_earth"]
+
+[sub_resource type="StandardMaterial3D" id="mat_rock"]
+albedo_texture = ExtResource("1_rock")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_darkrock"]
+albedo_texture = ExtResource("2_darkrock")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_grass"]
+albedo_texture = ExtResource("3_grass")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_light"]
+albedo_texture = ExtResource("4_light")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_earth"]
+albedo_texture = ExtResource("5_earth")
+uv1_triplanar = true
+
+[node name="MountainFortress" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="GroundPlane" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+size = Vector3(300, 2, 300)
+material = SubResource("mat_grass")
+
+[node name="MountainBase" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+size = Vector3(70, 20, 70)
+material = SubResource("mat_rock")
+
+[node name="MountainMid" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
+size = Vector3(50, 20, 50)
+material = SubResource("mat_rock")
+
+[node name="MountainUpper" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 38, 0)
+size = Vector3(34, 16, 34)
+material = SubResource("mat_darkrock")
+
+[node name="Summit" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 49, 0)
+size = Vector3(22, 4, 22)
+material = SubResource("mat_light")
+
+[node name="Ramp1S" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 35)
+size = Vector3(20, 3, 10)
+material = SubResource("mat_earth")
+
+[node name="Ramp2E" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 12, -5)
+size = Vector3(10, 3, 30)
+material = SubResource("mat_earth")
+
+[node name="Ramp3N" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19, -33)
+size = Vector3(22, 3, 10)
+material = SubResource("mat_earth")
+
+[node name="Ramp4W" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 27, 0)
+size = Vector3(10, 3, 24)
+material = SubResource("mat_earth")
+
+[node name="Ramp5Top" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 35, 20)
+size = Vector3(16, 3, 12)
+material = SubResource("mat_light")
+
+[node name="SpawnN" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -80)
+size = Vector3(30, 3, 30)
+material = SubResource("mat_grass")
+
+[node name="SpawnS" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 80)
+size = Vector3(30, 3, 30)
+material = SubResource("mat_grass")
+
+[node name="SpawnE" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 1, 0)
+size = Vector3(30, 3, 30)
+material = SubResource("mat_grass")
+
+[node name="SpawnW" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 1, 0)
+size = Vector3(30, 3, 30)
+material = SubResource("mat_grass")
+
+[node name="BridgeN" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -52)
+size = Vector3(6, 3, 28)
+material = SubResource("mat_earth")
+
+[node name="BridgeS" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 52)
+size = Vector3(6, 3, 28)
+material = SubResource("mat_earth")
+
+[node name="BridgeE" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 1, 0)
+size = Vector3(28, 3, 6)
+material = SubResource("mat_earth")
+
+[node name="BridgeW" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 1, 0)
+size = Vector3(28, 3, 6)
+material = SubResource("mat_earth")
+
+[node name="PlatformNE" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 20, -22)
+size = Vector3(10, 2, 10)
+material = SubResource("mat_light")
+
+[node name="PlatformSW" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 20, 22)
+size = Vector3(10, 2, 10)
+material = SubResource("mat_light")
+
+[node name="PlatformNW" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 30, -18)
+size = Vector3(8, 2, 8)
+material = SubResource("mat_light")
+
+[node name="PlatformSE" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 30, 18)
+size = Vector3(8, 2, 8)
+material = SubResource("mat_light")
+
+[node name="MapConfig" type="Node3D" parent="."]
+script = ExtResource("99_mapconfig")
+castle_position = Vector3(0, 53, 0)
+king_camera_start = Vector3(0, 85, 20)
+spawn_positions = [Vector3(0, 4, 80), Vector3(80, 4, 0), Vector3(-80, 4, 0)]
+resource_node_positions = [Vector3(-20, 4, 38), Vector3(20, 4, 38), Vector3(0, 22, 37)]
+death_zone_y = -15.0

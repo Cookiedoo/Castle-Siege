@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://class_select_01"]
+
+[ext_resource type="Script" path="res://ui/class_select.gd" id="1_cs"]
+
+[node name="ClassSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_cs")
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.75)
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -220.0
+offset_right = 420.0
+offset_bottom = 220.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "CHOOSE YOUR CLASS"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 40
+
+[node name="SubtitleLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Pick a role for the coming assault."
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+
+[node name="Separator" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="ClassRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="AssassinBtn" type="Button" parent="Panel/VBox/ClassRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 100)
+text = "ASSASSIN
+Double Jump (Space x2)
+Normal speed & HP
+Full damage"
+theme_override_font_sizes/font_size = 14
+
+[node name="VanguardBtn" type="Button" parent="Panel/VBox/ClassRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 100)
+text = "VANGUARD
+Rally Beacon (V)
+2x tower damage
+Cannot hit castle"
+theme_override_font_sizes/font_size = 14
+
+[node name="BerserkerBtn" type="Button" parent="Panel/VBox/ClassRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 100)
+text = "BERSERKER
+Ground Slam (V)
+50% slower, 50% more HP
+1.5x damage + AOE"
+theme_override_font_sizes/font_size = 14
+
+[node name="TimerLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Auto-selecting in 15..."
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+modulate = Color(0.7, 0.7, 0.7, 1)

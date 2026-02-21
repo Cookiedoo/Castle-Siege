@@ -1,0 +1,202 @@
+[gd_scene load_steps=45 format=3 uid="uid://placeholder_parkour_"]
+
+[ext_resource type="Script" uid="uid://bm4config3x7" path="res://world/map_config.gd" id="99_mapconfig"]
+
+[ext_resource type="Texture2D" uid="uid://mgmbkkqc0xie" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_01.png" id="1_dark"]
+[ext_resource type="Texture2D" uid="uid://ce6lx4t41f3g0" path="res://assets/kenney_prototype-textures/PNG/Orange/texture_09.png" id="2_warm"]
+[ext_resource type="Texture2D" uid="uid://4mpmxfaq2bon" path="res://assets/kenney_prototype-textures/PNG/Light/texture_07.png" id="3_light"]
+[ext_resource type="Texture2D" uid="uid://dboiw6k51wdmi" path="res://assets/kenney_prototype-textures/PNG/Light/texture_08.png" id="4_pale"]
+[ext_resource type="Texture2D" uid="uid://cj3it6aa7amcs" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_04.png" id="5_stone"]
+[ext_resource type="Texture2D" uid="uid://c3bldsh3pqknj" path="res://assets/kenney_prototype-textures/PNG/Red/texture_09.png" id="6_hot"]
+
+[sub_resource type="StandardMaterial3D" id="mat_dark"]
+albedo_texture = ExtResource("1_dark")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_warm"]
+albedo_texture = ExtResource("2_warm")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_light"]
+albedo_texture = ExtResource("3_light")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_pale"]
+albedo_texture = ExtResource("4_pale")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_stone"]
+albedo_texture = ExtResource("5_stone")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_hot"]
+albedo_texture = ExtResource("6_hot")
+uv1_triplanar = true
+
+[node name="ParkourGauntlet" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="SpawnPlatS1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 5, 80)
+size = Vector3(18, 3, 18)
+material = SubResource("mat_dark")
+
+[node name="SpawnPlatS2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 5, 80)
+size = Vector3(18, 3, 18)
+material = SubResource("mat_dark")
+
+[node name="SpawnPlatS3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 55)
+size = Vector3(14, 3, 14)
+material = SubResource("mat_dark")
+
+[node name="WallRunL1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 12, 68)
+size = Vector3(3, 18, 30)
+material = SubResource("mat_stone")
+
+[node name="WallRunR1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 12, 68)
+size = Vector3(3, 18, 30)
+material = SubResource("mat_stone")
+
+[node name="Z1_P1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 40)
+size = Vector3(14, 3, 14)
+material = SubResource("mat_warm")
+
+[node name="Z1_P2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 11, 28)
+size = Vector3(12, 3, 12)
+material = SubResource("mat_warm")
+
+[node name="Z1_P3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 14, 16)
+size = Vector3(12, 3, 12)
+material = SubResource("mat_warm")
+
+[node name="Z1_P4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 17, 4)
+size = Vector3(10, 3, 10)
+material = SubResource("mat_warm")
+
+[node name="WallRunZ1a" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 16, 20)
+size = Vector3(3, 20, 40)
+material = SubResource("mat_dark")
+
+[node name="WallRunZ1b" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 16, 20)
+size = Vector3(3, 20, 40)
+material = SubResource("mat_dark")
+
+[node name="Beam1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 20, -8)
+size = Vector3(3, 2, 22)
+material = SubResource("mat_light")
+
+[node name="Beam2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 22, -6)
+size = Vector3(3, 2, 18)
+material = SubResource("mat_light")
+
+[node name="Beam3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, -18)
+size = Vector3(3, 2, 16)
+material = SubResource("mat_light")
+
+[node name="Z2_Safe" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, -32)
+size = Vector3(16, 3, 16)
+material = SubResource("mat_pale")
+
+[node name="TowerL" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 30, -46)
+size = Vector3(10, 36, 10)
+material = SubResource("mat_stone")
+
+[node name="TowerR" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 30, -46)
+size = Vector3(10, 36, 10)
+material = SubResource("mat_stone")
+
+[node name="TLedgeL1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 30, -46)
+size = Vector3(6, 2, 8)
+material = SubResource("mat_pale")
+
+[node name="TLedgeL2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 38, -46)
+size = Vector3(6, 2, 8)
+material = SubResource("mat_pale")
+
+[node name="TLedgeL3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 46, -46)
+size = Vector3(6, 2, 8)
+material = SubResource("mat_pale")
+
+[node name="TLedgeR1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 30, -46)
+size = Vector3(6, 2, 8)
+material = SubResource("mat_pale")
+
+[node name="TLedgeR2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 38, -46)
+size = Vector3(6, 2, 8)
+material = SubResource("mat_pale")
+
+[node name="TLedgeR3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 46, -46)
+size = Vector3(6, 2, 8)
+material = SubResource("mat_pale")
+
+[node name="TowerBridge" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56, -46)
+size = Vector3(38, 3, 8)
+material = SubResource("mat_light")
+
+[node name="CastleIsland" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, -72)
+size = Vector3(40, 3, 30)
+material = SubResource("mat_warm")
+
+[node name="CastleRise" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, -72)
+size = Vector3(28, 8, 22)
+material = SubResource("mat_hot")
+
+[node name="IslandApproach" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 52, -60)
+size = Vector3(12, 3, 8)
+material = SubResource("mat_pale")
+
+[node name="Sky1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 28, -5)
+size = Vector3(8, 2, 8)
+material = SubResource("mat_hot")
+
+[node name="Sky2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 34, -22)
+size = Vector3(7, 2, 7)
+material = SubResource("mat_hot")
+
+[node name="Sky3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 32, -10)
+size = Vector3(8, 2, 8)
+material = SubResource("mat_hot")
+
+[node name="Sky4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 38, -28)
+size = Vector3(7, 2, 7)
+material = SubResource("mat_hot")
+
+[node name="MapConfig" type="Node3D" parent="."]
+script = ExtResource("99_mapconfig")
+castle_position = Vector3(0, 55, -72)
+king_camera_start = Vector3(0, 80, 10)
+spawn_positions = [Vector3(-20, 8, 80), Vector3(20, 8, 80), Vector3(0, 8, 55)]
+resource_node_positions = [Vector3(-20, 13, 28), Vector3(20, 13, 28), Vector3(0, 27, -32)]
+death_zone_y = -20.0

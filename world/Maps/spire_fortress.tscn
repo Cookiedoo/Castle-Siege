@@ -1,0 +1,247 @@
+[gd_scene load_steps=54 format=3 uid="uid://placeholder_spire_fo"]
+
+[ext_resource type="Script" uid="uid://bm4config3x7" path="res://world/map_config.gd" id="99_mapconfig"]
+
+[ext_resource type="Texture2D" uid="uid://mgmbkkqc0xie" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_01.png" id="1_stone"]
+[ext_resource type="Texture2D" uid="uid://cj3it6aa7amcs" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_04.png" id="2_dkstone"]
+[ext_resource type="Texture2D" uid="uid://4mpmxfaq2bon" path="res://assets/kenney_prototype-textures/PNG/Light/texture_07.png" id="3_light"]
+[ext_resource type="Texture2D" uid="uid://dacqkikb7e8a2" path="res://assets/kenney_prototype-textures/PNG/Green/texture_09.png" id="4_ground"]
+[ext_resource type="Texture2D" uid="uid://dboiw6k51wdmi" path="res://assets/kenney_prototype-textures/PNG/Light/texture_08.png" id="5_pale"]
+[ext_resource type="Texture2D" uid="uid://c3bldsh3pqknj" path="res://assets/kenney_prototype-textures/PNG/Red/texture_09.png" id="6_accent"]
+
+[sub_resource type="StandardMaterial3D" id="mat_stone"]
+albedo_texture = ExtResource("1_stone")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_dkstone"]
+albedo_texture = ExtResource("2_dkstone")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_light"]
+albedo_texture = ExtResource("3_light")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_ground"]
+albedo_texture = ExtResource("4_ground")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_pale"]
+albedo_texture = ExtResource("5_pale")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_accent"]
+albedo_texture = ExtResource("6_accent")
+uv1_triplanar = true
+
+[node name="SpireFortress" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="GroundBase" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+size = Vector3(250, 2, 250)
+material = SubResource("mat_ground")
+
+[node name="SpireBase" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+size = Vector3(46, 20, 46)
+material = SubResource("mat_stone")
+
+[node name="SpireLower" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
+size = Vector3(36, 16, 36)
+material = SubResource("mat_stone")
+
+[node name="SpireMid" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 36, 0)
+size = Vector3(26, 14, 26)
+material = SubResource("mat_dkstone")
+
+[node name="SpireUpper" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 47, 0)
+size = Vector3(18, 12, 18)
+material = SubResource("mat_dkstone")
+
+[node name="SpireTop" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 57, 0)
+size = Vector3(14, 8, 14)
+material = SubResource("mat_light")
+
+[node name="T1_S" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 28)
+size = Vector3(14, 3, 14)
+material = SubResource("mat_pale")
+
+[node name="T1_SE" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 13, 14)
+size = Vector3(8, 3, 20)
+material = SubResource("mat_pale")
+
+[node name="T1_E" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 15, 0)
+size = Vector3(14, 3, 10)
+material = SubResource("mat_pale")
+
+[node name="T1_NE" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 17, -16)
+size = Vector3(8, 3, 16)
+material = SubResource("mat_pale")
+
+[node name="T1_N" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19, -28)
+size = Vector3(14, 3, 10)
+material = SubResource("mat_pale")
+
+[node name="T2_NW" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 22, -18)
+size = Vector3(8, 3, 16)
+material = SubResource("mat_stone")
+
+[node name="T2_W" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 25, 0)
+size = Vector3(10, 3, 12)
+material = SubResource("mat_stone")
+
+[node name="T2_SW" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 28, 18)
+size = Vector3(8, 3, 16)
+material = SubResource("mat_stone")
+
+[node name="T2_S" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 31, 26)
+size = Vector3(14, 3, 8)
+material = SubResource("mat_stone")
+
+[node name="T2_SE" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 33, 16)
+size = Vector3(8, 3, 14)
+material = SubResource("mat_stone")
+
+[node name="T3_E" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 37, 0)
+size = Vector3(10, 3, 10)
+material = SubResource("mat_dkstone")
+
+[node name="T3_NE" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 40, -16)
+size = Vector3(8, 3, 14)
+material = SubResource("mat_dkstone")
+
+[node name="T3_N" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43, -22)
+size = Vector3(14, 3, 8)
+material = SubResource("mat_dkstone")
+
+[node name="T3_NW" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 46, -12)
+size = Vector3(8, 3, 12)
+material = SubResource("mat_dkstone")
+
+[node name="T3_Top" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 50, 0)
+size = Vector3(12, 3, 16)
+material = SubResource("mat_light")
+
+[node name="SpawnN" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -90)
+size = Vector3(28, 3, 28)
+material = SubResource("mat_ground")
+
+[node name="SpawnS" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 90)
+size = Vector3(28, 3, 28)
+material = SubResource("mat_ground")
+
+[node name="SpawnE" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 1, 0)
+size = Vector3(28, 3, 28)
+material = SubResource("mat_ground")
+
+[node name="SpawnW" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90, 1, 0)
+size = Vector3(28, 3, 28)
+material = SubResource("mat_ground")
+
+[node name="BridgeN" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -62)
+size = Vector3(6, 3, 28)
+material = SubResource("mat_pale")
+
+[node name="BridgeS" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 62)
+size = Vector3(6, 3, 28)
+material = SubResource("mat_pale")
+
+[node name="BridgeE" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 1, 0)
+size = Vector3(28, 3, 6)
+material = SubResource("mat_pale")
+
+[node name="BridgeW" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62, 1, 0)
+size = Vector3(28, 3, 6)
+material = SubResource("mat_pale")
+
+[node name="Park1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 8, 40)
+size = Vector3(8, 2, 8)
+material = SubResource("mat_accent")
+
+[node name="Park2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 14, 26)
+size = Vector3(7, 2, 7)
+material = SubResource("mat_accent")
+
+[node name="Park3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 20, 14)
+size = Vector3(6, 2, 6)
+material = SubResource("mat_accent")
+
+[node name="Park4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 12, 38)
+size = Vector3(8, 2, 8)
+material = SubResource("mat_accent")
+
+[node name="Park5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 22, 24)
+size = Vector3(6, 2, 6)
+material = SubResource("mat_accent")
+
+[node name="Park6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 28, -38)
+size = Vector3(8, 2, 8)
+material = SubResource("mat_accent")
+
+[node name="Park7" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 36, -26)
+size = Vector3(6, 2, 6)
+material = SubResource("mat_accent")
+
+[node name="Batt1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 59, 9)
+size = Vector3(4, 4, 4)
+material = SubResource("mat_light")
+
+[node name="Batt2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 59, 9)
+size = Vector3(4, 4, 4)
+material = SubResource("mat_light")
+
+[node name="Batt3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 59, -9)
+size = Vector3(4, 4, 4)
+material = SubResource("mat_light")
+
+[node name="Batt4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 59, -9)
+size = Vector3(4, 4, 4)
+material = SubResource("mat_light")
+
+[node name="MapConfig" type="Node3D" parent="."]
+script = ExtResource("99_mapconfig")
+castle_position = Vector3(0, 63, 0)
+king_camera_start = Vector3(0, 95, 25)
+spawn_positions = [Vector3(0, 4, 90), Vector3(90, 4, 0), Vector3(-90, 4, 0)]
+resource_node_positions = [Vector3(-40, 4, 40), Vector3(40, 4, 40), Vector3(0, 4, -60)]
+death_zone_y = -15.0

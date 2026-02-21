@@ -1,0 +1,146 @@
+[gd_scene load_steps=12 format=3 uid="uid://bt8pirjti3xej"]
+
+[ext_resource type="Texture2D" uid="uid://dacqkikb7e8a2" path="res://assets/kenney_prototype-textures/PNG/Green/texture_09.png" id="1_grn"]
+[ext_resource type="Texture2D" uid="uid://mgmbkkqc0xie" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_01.png" id="2_drk"]
+[ext_resource type="Texture2D" uid="uid://5xf1d5hvpvs" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_08.png" id="3_6quag"]
+[ext_resource type="Texture2D" uid="uid://4mpmxfaq2bon" path="res://assets/kenney_prototype-textures/PNG/Light/texture_07.png" id="3_lgt"]
+[ext_resource type="Texture2D" uid="uid://cj3it6aa7amcs" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_04.png" id="4_dkst"]
+[ext_resource type="Script" uid="uid://bm4config3x7" path="res://world/map_config.gd" id="99_mapconfig"]
+
+[sub_resource type="StandardMaterial3D" id="mat_floor"]
+albedo_texture = ExtResource("1_grn")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_plinth"]
+albedo_texture = ExtResource("3_lgt")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n03wx"]
+albedo_texture = ExtResource("3_6quag")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_wall"]
+albedo_texture = ExtResource("2_drk")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="mat_edge"]
+albedo_texture = ExtResource("4_dkst")
+uv1_triplanar = true
+
+[node name="TestArena" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Floor" type="CSGBox3D" parent="CSGCombiner3D"]
+size = Vector3(120, 2, 120)
+material = SubResource("mat_floor")
+
+[node name="CastlePlinth" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7144966, 0)
+size = Vector3(20, 5.3624268, 20)
+material = SubResource("mat_plinth")
+
+[node name="NorthRamp" type="CSGBox3D" parent="CSGCombiner3D/CastlePlinth"]
+transform = Transform3D(-4.4703484e-08, -0.2588191, 0.9659258, 5.9604645e-08, 0.96592593, 0.25881904, -1, 0, -2.2351742e-08, -18.414211, -1.6096513, -0.13928986)
+size = Vector3(14, 4, 20)
+material = SubResource("mat_plinth")
+
+[node name="NorthRamp2" type="CSGBox3D" parent="CSGCombiner3D/CastlePlinth"]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, -1.3875291, -18.516436)
+size = Vector3(14, 4, 20)
+material = SubResource("mat_plinth")
+
+[node name="SouthRamp" type="CSGBox3D" parent="CSGCombiner3D/CastlePlinth"]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, -0.25881904, 0, 0.25881904, 0.9659258, 0, -0.42160332, 18.775255)
+size = Vector3(14, 2, 20)
+material = SubResource("mat_plinth")
+
+[node name="EastRamp" type="CSGBox3D" parent="CSGCombiner3D/CastlePlinth"]
+transform = Transform3D(0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 0, 0, 1, 18.516436, -1.3875291, 0)
+size = Vector3(20, 4, 14)
+material = SubResource("mat_plinth")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/CastlePlinth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.42053223, 3.1046758, 6.265991)
+operation = 2
+size = Vector3(27.15503, 1, 50.179443)
+material = SubResource("StandardMaterial3D_n03wx")
+
+[node name="WallNorth" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -60)
+size = Vector3(124, 6, 4)
+material = SubResource("mat_wall")
+
+[node name="WallSouth" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 60)
+size = Vector3(124, 6, 4)
+material = SubResource("mat_wall")
+
+[node name="WallWest" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 2, 0)
+size = Vector3(4, 6, 120)
+material = SubResource("mat_wall")
+
+[node name="WallEast" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.057129, 0)
+size = Vector3(4, 10.114258, 120)
+material = SubResource("mat_wall")
+
+[node name="CoverNW1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, -25)
+size = Vector3(8, 4, 8)
+material = SubResource("mat_edge")
+
+[node name="CoverNE1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, -25)
+size = Vector3(8, 4, 8)
+material = SubResource("mat_edge")
+
+[node name="CoverSW1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, 25)
+size = Vector3(8, 4, 8)
+material = SubResource("mat_edge")
+
+[node name="CoverSE1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 25)
+size = Vector3(8, 4, 8)
+material = SubResource("mat_edge")
+
+[node name="CoverNW2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 1, -10)
+size = Vector3(6, 4, 6)
+material = SubResource("mat_edge")
+
+[node name="CoverNW2" type="CSGBox3D" parent="CSGCombiner3D/CoverNW2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, -1, 42)
+size = Vector3(6, 4, 6)
+material = SubResource("mat_edge")
+
+[node name="CoverSW2" type="CSGBox3D" parent="CSGCombiner3D/CoverNW2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, -1, 42)
+size = Vector3(6, 4, 6)
+material = SubResource("mat_edge")
+
+[node name="CoverNE2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 1, -10)
+size = Vector3(6, 4, 6)
+material = SubResource("mat_edge")
+
+[node name="CoverSW2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 1, 10)
+size = Vector3(6, 4, 6)
+material = SubResource("mat_edge")
+
+[node name="CoverSE2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 1, 10)
+size = Vector3(6, 4, 6)
+material = SubResource("mat_edge")
+
+[node name="MapConfig" type="Node3D" parent="."]
+script = ExtResource("99_mapconfig")
+castle_position = Vector3(0, 3, 0)
+king_camera_start = Vector3(0, 38, 10)
+spawn_positions = Array[Vector3]([Vector3(-50, 2, 0), Vector3(50, 2, 0), Vector3(0, 2, 50)])
+resource_node_positions = Array[Vector3]([Vector3(-25, 4, -25), Vector3(25, 4, 25), Vector3(25, 4, -25), Vector3(-25, 4, 25)])
+death_zone_y = -10.0

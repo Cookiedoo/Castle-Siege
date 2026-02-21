@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=3 uid="uid://c3vqj8n3wqw3x"]
+
+[ext_resource type="Script" uid="uid://218cjkvhq1fy" path="res://core/game_manager.gd" id="1_game_manager"]
+[ext_resource type="PackedScene" uid="uid://cpram4n7x2klt" path="res://gameplay/king/king_camera.tscn" id="2_king_camera"]
+[ext_resource type="PackedScene" uid="uid://dqxc8p5m7layt" path="res://world/castle.tscn" id="3_castle"]
+[ext_resource type="PackedScene" uid="uid://bqxm7d8k5a0yw" path="res://gameplay/attacker/attacker.tscn" id="4_attacker"]
+[ext_resource type="PackedScene" uid="uid://b8pqm7oax5kyt" path="res://ui/king/king_hud.tscn" id="5_king_hud"]
+[ext_resource type="Script" uid="uid://ufq817xm3d3w" path="res://world/game_world.gd" id="6_game_world"]
+[ext_resource type="Script" uid="uid://ch7hoj0wrb2qy" path="res://world/death_zone.gd" id="8_death_zone"]
+[ext_resource type="Script" uid="uid://711hm0rxg2gd" path="res://gameplay/king/build_controller.gd" id="9_build_ctrl"]
+[ext_resource type="PackedScene" uid="uid://bcl7c0isyyvbo" path="res://core/resources/resource_node.tscn" id="10_res_node"]
+[ext_resource type="Script" uid="uid://clol0omqii8lc" path="res://gameplay/king/king_abilities.gd" id="11_king_abilities"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_deathzone"]
+size = Vector3(200, 5, 200)
+
+[node name="GameWorld" type="Node3D"]
+script = ExtResource("6_game_world")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_game_manager")
+
+[node name="Castle" parent="." instance=ExtResource("3_castle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Attackers" type="Node3D" parent="."]
+
+[node name="Attacker1" parent="Attackers" instance=ExtResource("4_attacker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 30)
+
+[node name="Attacker2" parent="Attackers" instance=ExtResource("4_attacker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 2, 30)
+
+[node name="Attacker3" parent="Attackers" instance=ExtResource("4_attacker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 30)
+
+[node name="Attacker4" parent="Attackers" instance=ExtResource("4_attacker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 60)
+
+[node name="Towers" type="Node3D" parent="."]
+
+[node name="DeathZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18.228878, 0)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_death_zone")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.905561, 0)
+shape = SubResource("BoxShape3D_deathzone")
+
+[node name="RespawnPoints" type="Node3D" parent="."]
+
+[node name="Spawn1" type="Marker3D" parent="RespawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 30)
+
+[node name="Spawn2" type="Marker3D" parent="RespawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 2, 30)
+
+[node name="Spawn3" type="Marker3D" parent="RespawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 40)
+
+[node name="Spawn4" type="Marker3D" parent="RespawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 40)
+
+[node name="KingCamera" parent="." instance=ExtResource("2_king_camera")]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 40, 40)
+
+[node name="KingHUD" parent="." instance=ExtResource("5_king_hud")]
+
+[node name="BuildController" type="Node" parent="."]
+script = ExtResource("9_build_ctrl")
+snap_to_grid = null
+grid_size = null
+min_tower_spacing = null
+max_towers = null
+
+[node name="ResourceNodes" type="Node3D" parent="."]
+
+[node name="NodeA" parent="ResourceNodes" instance=ExtResource("10_res_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 0)
+
+[node name="NodeB" parent="ResourceNodes" instance=ExtResource("10_res_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 2, 0)
+
+[node name="NodeC" parent="ResourceNodes" instance=ExtResource("10_res_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -25)
+
+[node name="NodeD" parent="ResourceNodes" instance=ExtResource("10_res_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -50)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.8660254, -0.35355338, 0.35355338, 0, 0.70710677, 0.70710677, -0.5, -0.6123724, 0.6123724, 0, 0, 0)
+light_energy = 1.5
+
+[node name="KingAbilities" type="Node" parent="."]
+script = ExtResource("11_king_abilities")

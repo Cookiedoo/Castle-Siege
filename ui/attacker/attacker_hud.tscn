@@ -1,0 +1,336 @@
+[gd_scene load_steps=3 format=3 uid="uid://cakxbtjmtbl22"]
+
+[ext_resource type="Script" uid="uid://bbh0egwompmb0" path="res://ui/attacker/attacker_hud.gd" id="1"]
+[ext_resource type="Script" uid="uid://bect3eh0f6p7j" path="res://core/resources/match_timer.gd" id="2_timer"]
+
+[node name="AttackerHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1")
+
+[node name="Crosshair" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="H" type="ColorRect" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -1.5
+offset_right = 12.0
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.75)
+
+[node name="V" type="ColorRect" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.5
+offset_top = -12.0
+offset_right = 1.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.75)
+
+[node name="TopLeft" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 280.0
+offset_bottom = 130.0
+theme_override_constants/separation = 6
+
+[node name="HealthPanel" type="PanelContainer" parent="TopLeft"]
+layout_mode = 2
+
+[node name="HealthInner" type="VBoxContainer" parent="TopLeft/HealthPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="HealthTitle" type="Label" parent="TopLeft/HealthPanel/HealthInner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 0.7)
+theme_override_font_sizes/font_size = 12
+text = "HEALTH"
+
+[node name="HealthBar" type="ProgressBar" parent="TopLeft/HealthPanel/HealthInner"]
+custom_minimum_size = Vector2(220, 22)
+layout_mode = 2
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="TopLeft/HealthPanel/HealthInner"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "100 / 100"
+
+[node name="CastlePanel" type="PanelContainer" parent="TopLeft"]
+layout_mode = 2
+
+[node name="CastleInner" type="VBoxContainer" parent="TopLeft/CastlePanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="CastleTitle" type="Label" parent="TopLeft/CastlePanel/CastleInner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1.0, 0.5, 0.4, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "CASTLE HP"
+
+[node name="CastleHealthBar" type="ProgressBar" parent="TopLeft/CastlePanel/CastleInner"]
+custom_minimum_size = Vector2(220, 22)
+layout_mode = 2
+max_value = 1000.0
+value = 1000.0
+show_percentage = false
+
+[node name="CastleHPLabel" type="Label" parent="TopLeft/CastlePanel/CastleInner"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "1000 / 1000"
+
+[node name="TopRight" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -260.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = 90.0
+theme_override_constants/separation = 4
+
+[node name="TimerLabel" type="Label" parent="TopRight"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "15:00"
+horizontal_alignment = 2
+script = ExtResource("2_timer")
+
+[node name="ClassLabel" type="Label" parent="TopRight"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "No Class"
+horizontal_alignment = 2
+
+[node name="GoldLabel" type="Label" parent="TopRight"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "Gold: 0"
+horizontal_alignment = 2
+
+[node name="BottomBar" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_right = 540.0
+offset_bottom = 0.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Row" type="HBoxContainer" parent="BottomBar"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="DashAbility" type="VBoxContainer" parent="BottomBar/Row"]
+layout_mode = 2
+alignment = 1
+
+[node name="DashIcon" type="Panel" parent="BottomBar/Row/DashAbility"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="DashKey" type="Label" parent="BottomBar/Row/DashAbility/DashIcon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -12.0
+offset_right = 16.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 26
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DashCooldown" type="ColorRect" parent="BottomBar/Row/DashAbility/DashIcon"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="DashCooldownLabel" type="Label" parent="BottomBar/Row/DashAbility/DashIcon/DashCooldown"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -12.0
+offset_right = 16.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DashLabel" type="Label" parent="BottomBar/Row/DashAbility"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "DASH"
+horizontal_alignment = 1
+
+[node name="ClassAbility" type="VBoxContainer" parent="BottomBar/Row"]
+layout_mode = 2
+alignment = 1
+
+[node name="ClassIcon" type="Panel" parent="BottomBar/Row/ClassAbility"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="ClassKey" type="Label" parent="BottomBar/Row/ClassAbility/ClassIcon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -12.0
+offset_right = 16.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 26
+text = "V"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClassCooldown" type="ColorRect" parent="BottomBar/Row/ClassAbility/ClassIcon"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="ClassCooldownLabel" type="Label" parent="BottomBar/Row/ClassAbility/ClassIcon/ClassCooldown"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -12.0
+offset_right = 16.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClassAbilityLabel" type="Label" parent="BottomBar/Row/ClassAbility"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "ABILITY"
+horizontal_alignment = 1
+
+[node name="AttackIndicator" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.25, 0.25, 0.7)
+
+[node name="ShopPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -140.0
+offset_right = 180.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShopHint" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -20.0
+offset_right = 260.0
+offset_bottom = 0.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 0.6)
+theme_override_font_sizes/font_size = 14
+text = "Q: Upgrade Shop"

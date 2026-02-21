@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://gameplay/towers/wizard_tower.gd" id="1_wizard"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wiz"]
+albedo_color = Color(0.5, 0.2, 0.8, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+material = SubResource("StandardMaterial3D_wiz")
+size = Vector3(1.2, 3, 1.2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1"]
+radius = 12.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_col"]
+size = Vector3(1.2, 3, 1.2)
+
+[node name="WizardTower" type="Node3D"]
+script = ExtResource("1_wizard")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("BoxMesh_1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_col")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("SphereShape3D_1")
+
+[node name="ProjectileSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0)

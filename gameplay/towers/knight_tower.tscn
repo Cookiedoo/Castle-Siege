@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://gameplay/towers/knight_tower.gd" id="1_knight"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kn"]
+albedo_color = Color(0.2, 0.6, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+material = SubResource("StandardMaterial3D_kn")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1"]
+radius = 18.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_col"]
+size = Vector3(2, 2, 2)
+
+[node name="KnightTower" type="Node3D"]
+script = ExtResource("1_knight")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_col")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("SphereShape3D_1")
+
+[node name="ProjectileSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)

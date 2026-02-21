@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://map_editor_dock01"]
+
+[ext_resource type="Script" path="res://addons/castle_map_editor/map_editor_dock.gd" id="1_dock"]
+
+[node name="MapEditorDock" type="VBoxContainer"]
+custom_minimum_size = Vector2(180, 400)
+script = ExtResource("1_dock")
