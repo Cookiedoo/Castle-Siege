@@ -11,127 +11,90 @@ signal connection_failed()
 signal peer_list_updated()
 signal role_confirmed(role: String)
 
-# peer_id -> "king" | "attacker"
-var peer_roles: Dictionary = {}
-# peer_id -> display name string
-var peer_names: Dictionary = {}
-
-var is_host: bool = false
+# ── Peer Data ─────────────────────────────
+var peer_roles: Dictionary[int, String] = {}    # peer_id -> "king" | "attacker"
+var peer_names: Dictionary[int, String] = {}    # peer_id -> display name
 var king_claimed_by: int = -1
+var is_host: bool = false
 
+# Multiplayer peer
+var mp_peer: ENetMultiplayerPeer = null
 
 func _ready() -> void:
 	add_to_group("network_manager")
-	multiplayer.peer_connected.connect(_on_peer_connected)
-	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-	multiplayer.connected_to_server.connect(_on_connected_to_server)
-	multiplayer.connection_failed.connect(_on_connection_failed)
-	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
-
-# ── Host / Join / Disconnect ──────────────────────────────────────────
-
-func host_game(port: int = DEFAULT_PORT) -> Error:
-	var peer := ENetMultiplayerPeer.new()
-	var err: Error = peer.create_server(port, MAX_PLAYERS)
+# ── HOST ───────────────────────────────
+func host_game(port: int = DEFAULT_PORT) -> void:
+	mp_peer = ENetMultiplayerPeer.new()
+	var err = mp_peer.create_server(port, MAX_PLAYERS)
 	if err != OK:
-		return err
-	multiplayer.multiplayer_peer = peer
+		push_error("Failed to start ENet server: %d" % err)
+		return
+	multiplayer.multiplayer_peer = mp_peer
 	is_host = true
-	# Host starts with no role claimed — they choose in the lobby too
+
 	peer_roles[1] = "unassigned"
 	peer_names[1] = "Host"
 	emit_signal("peer_list_updated")
-	return OK
+	print("ENet server running on port %d" % port)
 
-
-func join_game(address: String, port: int = DEFAULT_PORT) -> Error:
-	var peer := ENetMultiplayerPeer.new()
-	var err: Error = peer.create_client(address, port)
+# ── CLIENT ─────────────────────────────
+func join_game(host_ip: String, port: int = DEFAULT_PORT) -> void:
+	mp_peer = ENetMultiplayerPeer.new()
+	var err = mp_peer.create_client(host_ip, port)
 	if err != OK:
-		return err
-	multiplayer.multiplayer_peer = peer
-	is_host = false
-	return OK
-
-
-func disconnect_from_game() -> void:
-	if multiplayer.multiplayer_peer:
-		multiplayer.multiplayer_peer.close()
-	multiplayer.multiplayer_peer = null
-	peer_roles.clear()
-	peer_names.clear()
-	king_claimed_by = -1
-	is_host = false
-
-
-# ── Role Selection ────────────────────────────────────────────────────
-
-# Client calls this when they click a role button in the lobby
-func request_role_change(desired_role: String) -> void:
-	var my_id: int = multiplayer.get_unique_id()
-	if multiplayer.is_server():
-		_process_role_request(my_id, desired_role)
-	else:
-		_rpc_request_role.rpc_id(1, desired_role)
-
-
-@rpc("any_peer", "call_local", "reliable")
-func _rpc_request_role(desired_role: String) -> void:
-	if not multiplayer.is_server():
+		emit_signal("connection_failed")
 		return
-	var sender: int = multiplayer.get_remote_sender_id()
-	_process_role_request(sender, desired_role)
+	multiplayer.multiplayer_peer = mp_peer
+	is_host = false
+	print("Connecting to server at %s:%d" % [host_ip, port])
 
+# ── ROLE MANAGEMENT ─────────────────────────────
+func request_role_change(desired_role: String) -> void:
+	if is_host:
+		_process_role_request(multiplayer.get_unique_id(), desired_role)
+	else:
+		var msg: Dictionary = {"type":"role_request", "role":desired_role}
+		_send_to_server(msg)
 
 func _process_role_request(peer_id: int, desired_role: String) -> void:
-	# Server-side role logic
 	if desired_role == "king":
 		if king_claimed_by != -1 and king_claimed_by != peer_id:
-			# King already taken — force attacker
 			_assign_role_to(peer_id, "attacker")
 			return
-		# Release previous king if this peer is switching from king
-		if king_claimed_by == peer_id and desired_role != "king":
-			king_claimed_by = -1
 		king_claimed_by = peer_id
-		_assign_role_to(peer_id, "king")
 	else:
-		# If this peer was king, release the slot
 		if king_claimed_by == peer_id:
 			king_claimed_by = -1
-		_assign_role_to(peer_id, "attacker")
-
+	_assign_role_to(peer_id, desired_role)
 
 func _assign_role_to(peer_id: int, role: String) -> void:
 	peer_roles[peer_id] = role
-	# Tell that specific peer their confirmed role
-	if peer_id == multiplayer.get_unique_id():
-		_rpc_receive_role.rpc_id(peer_id, role)
-	else:
-		_rpc_receive_role.rpc_id(peer_id, role)
-	# Broadcast updated peer list to everyone
+	_send_role_confirm(peer_id, role)
 	_broadcast_peer_list()
 
-
-@rpc("authority", "call_local", "reliable")
-func _rpc_receive_role(role: String) -> void:
-	get_tree().root.set_meta("player_role", role)
-	emit_signal("role_confirmed", role)
-
+func _send_role_confirm(peer_id: int, role: String) -> void:
+	var msg: Dictionary = {"type":"role_confirmed", "role":role}
+	if is_host:
+		_send_to_peer(peer_id, msg)
+	else:
+		_send_to_server(msg)
 
 func _broadcast_peer_list() -> void:
-	if not multiplayer.is_server():
-		return
-	var ids: Array = peer_roles.keys()
-	var roles: Array = peer_roles.values()
-	var names: Array = peer_names.values()
-	_rpc_receive_peer_list.rpc(ids, roles, names)
+	var msg: Dictionary = {
+		"type":"peer_list",
+		"ids":peer_roles.keys(),
+		"roles":peer_roles.values(),
+		"names":peer_names.values()
+	}
+	if is_host:
+		for peer_id in multiplayer.get_peers():
+			_send_to_peer(peer_id, msg)
+	else:
+		_send_to_server(msg)
 	emit_signal("peer_list_updated")
 
-
-@rpc("authority", "call_local", "reliable")
-func _rpc_receive_peer_list(ids: Array, roles: Array, names: Array) -> void:
+func _update_peer_list(ids: Array, roles: Array, names: Array) -> void:
 	peer_roles.clear()
 	peer_names.clear()
 	for i in range(ids.size()):
@@ -139,63 +102,57 @@ func _rpc_receive_peer_list(ids: Array, roles: Array, names: Array) -> void:
 		peer_names[ids[i]] = names[i]
 	emit_signal("peer_list_updated")
 
-
-# ── Start Match ───────────────────────────────────────────────────────
-
+# ── MATCH START ─────────────────────────────
 func start_match_all(map_path: String) -> void:
-	if not multiplayer.is_server():
+	if not is_host:
 		return
-	_rpc_load_game_world.rpc(map_path)
+	var msg: Dictionary = {"type":"load_match", "map_path":map_path}
+	for peer_id in multiplayer.get_peers():
+		_send_to_peer(peer_id, msg)
 
-
-@rpc("authority", "call_local", "reliable")
-func _rpc_load_game_world(map_path: String) -> void:
-	get_tree().root.set_meta("selected_map", map_path)
-	get_tree().change_scene_to_file("res://world/game_world.tscn")
-
-
-# ── Peer Events ───────────────────────────────────────────────────────
-
-func _on_peer_connected(peer_id: int) -> void:
-	if multiplayer.is_server():
-		peer_roles[peer_id] = "unassigned"
-		peer_names[peer_id] = "Player %d" % peer_id
-		_broadcast_peer_list()
-	emit_signal("player_connected", peer_id)
-
-
-func _on_peer_disconnected(peer_id: int) -> void:
-	if king_claimed_by == peer_id:
-		king_claimed_by = -1
-	peer_roles.erase(peer_id)
-	peer_names.erase(peer_id)
-	if multiplayer.is_server():
-		_broadcast_peer_list()
-	emit_signal("player_disconnected", peer_id)
-
-
-func _on_connected_to_server() -> void:
-	# Server will broadcast peer list automatically when we connected
-	pass
-
-
-func _on_connection_failed() -> void:
-	emit_signal("connection_failed")
-
-
-func _on_server_disconnected() -> void:
-	emit_signal("server_disconnected")
-
-
-# ── Helpers ───────────────────────────────────────────────────────────
-
+# ── HELPERS ─────────────────────────────
 func get_my_role() -> String:
 	return get_tree().root.get_meta("player_role", "attacker")
 
-
-func is_king_slot_taken() -> bool:
-	return king_claimed_by != -1
-
-
 func get_peer_count() -> int:
 	return peer_roles.size()
+
+# ── NETWORK SEND/RECEIVE ─────────────────────────────
+func _send_to_peer(peer_id: int, msg: Dictionary) -> void:
+	var json_str: String = JSON.stringify(msg)
+	multiplayer.send_rpc_id(peer_id, "_receive_message", [json_str.to_utf8_buffer()])
+
+func _send_to_server(msg: Dictionary) -> void:
+	var json_str: String = JSON.stringify(msg)
+	multiplayer.send_rpc_id(1, "_receive_message", [json_str.to_utf8_buffer()])
+
+@rpc("any_peer", "call_local", "reliable")
+func _receive_message(packet_bytes: PackedByteArray) -> void:
+	var packet_str: String = packet_bytes.get_string_from_utf8()
+	var parser := JSON.new()
+	var parse_result = parser.parse(packet_str)
+
+	if parse_result.error != OK:
+		push_error("Failed to parse JSON: %s" % packet_str)
+		return
+
+	var msg: Dictionary = parse_result.result
+	if typeof(msg) != TYPE_DICTIONARY:
+		push_error("Parsed JSON is not a Dictionary!")
+		return
+
+	if not msg.has("type"):
+		return
+
+	match msg["type"]:
+		"role_request":
+			if is_host:
+				_process_role_request(multiplayer.get_remote_sender_id(), msg["role"])
+		"role_confirmed":
+			get_tree().root.set_meta("player_role", msg["role"])
+			emit_signal("role_confirmed", msg["role"])
+		"peer_list":
+			_update_peer_list(msg["ids"], msg["roles"], msg["names"])
+		"load_match":
+			get_tree().root.set_meta("selected_map", msg["map_path"])
+			get_tree().change_scene_to_file("res://world/game_world.tscn")

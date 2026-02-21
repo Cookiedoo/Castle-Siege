@@ -1,9 +1,6 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1771697232
-Castle Siege.apple-touch-icon.png::CompressedTexture2D::2111058102532779176::1771697231::1771697237::1::::<><><>0<>0<>5c1fd916fdcd09b7adb9d8d2a8a81748<>res://.godot/imported/Castle Siege.apple-touch-icon.png-7f5ac0b9d56f656cf1e0497918e4ec98.ctex::
-Castle Siege.icon.png::CompressedTexture2D::7044425089921812324::1771697231::1771697237::1::::<><><>0<>0<>13a79ca0061426d2fa1b70e2903ff9d7<>res://.godot/imported/Castle Siege.icon.png-8b1ba61e5b2f99664ae1439677c12422.ctex::
-Castle Siege.png::CompressedTexture2D::760791325994477387::1771697231::1771697237::1::::<><><>0<>0<>5a60e7858aa5363dfd8d2db8f01baaa7<>res://.godot/imported/Castle Siege.png-c893aa440e3f825b616b4c74fd50ef52.ctex::
-export_presets.cfg::TextFile::-1::1771697232::0::1::::<><><>0<>0<><>::
+::res://::1771699788
+export_presets.cfg::TextFile::-1::1771699788::0::1::::<><><>0<>0<><>::
 icon.svg::CompressedTexture2D::5569730734507982638::1771695352::1771695369::1::::<><><>0<>0<>bce5c23bfc253fc42806b4dc2568062d<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 ::res://addons/::1771695220
 ::res://addons/castle_map_editor/::1771695225
@@ -128,6 +125,10 @@ match_timer.gd::GDScript::2672508660896085677::1771695220::0::1::::<>Label<><>0<
 resource_node.gd::GDScript::7123977902893810582::1771695220::0::1::::ResourceNode<>Node3D<><>0<>0<><>::
 resource_node.tscn::PackedScene::2551454367913226244::1771695220::0::1::::<><><>0<>0<><>::uid://c8q5401hk7iwk::::res://core/resources/resource_node.gd
 ::res://core/teams/::1771695220
+::res://docs/::1771699807
+CastleSiege.apple-touch-icon.png::CompressedTexture2D::5308089175163263798::1771699787::1771700283::1::::<><><>0<>0<>409a8e60ca0d8553df09868227230a98<>res://.godot/imported/CastleSiege.apple-touch-icon.png-dea73e20f75908eadefecd231d3355d2.ctex::
+CastleSiege.icon.png::CompressedTexture2D::7899093849987612447::1771699787::1771700283::1::::<><><>0<>0<>2cee8c1bd1279bd49bd65cf97d1aa86d<>res://.godot/imported/CastleSiege.icon.png-7f9e002b44649e2ca35b5dfe1f2374a6.ctex::
+CastleSiege.png::CompressedTexture2D::5113941989854226067::1771699787::1771700283::1::::<><><>0<>0<>3ccd5a5b45edd91c585c2b0658452fef<>res://.godot/imported/CastleSiege.png-e1abe56b13a929394d449ec9ceb708e5.ctex::
 ::res://gameplay/::1771695220
 ::res://gameplay/attacker/::1771695220
 attacker.gd::GDScript::6064596539709169413::1771695220::0::1::::Attacker<>CharacterBody3D<><>0<>0<><>::
